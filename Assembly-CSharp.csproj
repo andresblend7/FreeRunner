@@ -61,8 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Escenario\Generadores.cs" />
+    <Compile Include="Assets\Scripts\Interfaz\ControladorPuntajes.cs" />
     <Compile Include="Assets\Scripts\Interfaz\ControlesUI.cs" />
+    <Compile Include="Assets\Scripts\Items\Monedas.cs" />
+    <Compile Include="Assets\Scripts\Obstaculos\Terrestres\ObstaculoData.cs" />
     <Compile Include="Assets\Scripts\Personaje\Animaciones.cs" />
+    <Compile Include="Assets\Scripts\Personaje\GeneradorObstaculos.cs" />
     <Compile Include="Assets\Scripts\Personaje\Personaje.cs" />
     <Compile Include="Assets\Scripts\Shared\Globals.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

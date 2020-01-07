@@ -5,12 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class Personaje : MonoBehaviour, IPointerClickHandler // 2
+public class Personaje : MonoBehaviour // 2
 {
 
     public GameObject personaje;
-    [Range(0.15f, 0.50f)]
-    public float velocidadMovimiento = 0.15f;
+    [Range(0.25f, 0.70f)]
+    public float velocidadMovimiento;
 
     //Movimiento
     private Vector3 fp;   //First touch position
@@ -26,7 +26,8 @@ public class Personaje : MonoBehaviour, IPointerClickHandler // 2
     private float velocidadCambio = 5, velocidadSalto = 9f, velocidadCaida = 1f;
     private float alturaSalto = 1.3f;
 
-    private float auxSalto = 0;
+
+
 
     //Controllador de animaciones 
     private Animaciones animacionesController;
@@ -35,7 +36,7 @@ public class Personaje : MonoBehaviour, IPointerClickHandler // 2
     // Start is called before the first frame update
     void Start()
     {
-        this.velocidadMovimiento = 0.15f;
+        this.velocidadMovimiento = 0.25f;
         dragDistance = Screen.height * 15 / 100; //dragDistance is 15% height of the screen
 
         textoDebugger.text = "Started";
@@ -48,6 +49,8 @@ public class Personaje : MonoBehaviour, IPointerClickHandler // 2
     {
         personaje.transform.Translate(Vector3.forward * (Time.deltaTime + this.velocidadMovimiento));
 
+        #region TouchSwipe
+        /*
         if (Input.touchCount == 1) // user is touching the screen with a single touch
         {
             Debug.Log("One Touch");
@@ -111,7 +114,9 @@ public class Personaje : MonoBehaviour, IPointerClickHandler // 2
                 }
             }
         }
+        */
 
+        #endregion
 
         if (Globals.debugModePc)
         {
@@ -219,7 +224,6 @@ public class Personaje : MonoBehaviour, IPointerClickHandler // 2
             if (personaje.transform.position.y == 0) {
                 this.caerPersonaje = false;
                 this.velocidadCaida = 0;
-                this.auxSalto = 0;
             }
         }
             
@@ -249,14 +253,14 @@ public class Personaje : MonoBehaviour, IPointerClickHandler // 2
     {
         Debug.Log($"Carril Actual => {this.carrilActual}");
 
-
-        if (this.carrilActual == (int)Globals.Carriles.Central)
+        //Personaje se encuentra en el centro
+        if (this.gameObject.transform.position.x == 0)
         {
             Debug.Log("Se moverá a carril de la derecha");
             this.moverAlCarrilDerecho = true;
 
         }
-        else if (this.carrilActual == (int)Globals.Carriles.Izquierdo)
+        else if (this.gameObject.transform.position.x == -1)
         {
             Debug.Log("Se moverá a carril del centro");
             this.moverAlCarrilCentral = true;
@@ -274,13 +278,13 @@ public class Personaje : MonoBehaviour, IPointerClickHandler // 2
         Debug.Log($"Carril Actual => {this.carrilActual}");
 
 
-        if (this.carrilActual == (int)Globals.Carriles.Central)
+        if (this.gameObject.transform.position.x == 0)
         {
             Debug.Log("Se moverá a carril de la Izquierda");
             this.moverAlCarrilIzquierdo = true;
 
         }
-        else if (this.carrilActual == (int)Globals.Carriles.Derecho)
+        else if (this.gameObject.transform.position.x == 1)
         {
             Debug.Log("Se moverá a carril del centro");
             this.moverAlCarrilCentral = true;
@@ -291,11 +295,5 @@ public class Personaje : MonoBehaviour, IPointerClickHandler // 2
             Debug.Log("Imposible mover hacia la izquierda");
         }
 
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-
-        //throw new System.NotImplementedException();
     }
 }
