@@ -8,7 +8,7 @@ using System;
 public class Personaje : MonoBehaviour // 2
 {
 
-    public GameObject personaje;
+   // public GameObject personaje;
     [Range(0.25f, 0.70f)]
     public float velocidadMovimiento;
 
@@ -47,76 +47,10 @@ public class Personaje : MonoBehaviour // 2
     // Update is called once per frame
     void FixedUpdate()
     {
-        personaje.transform.Translate(Vector3.forward * (Time.deltaTime + this.velocidadMovimiento));
 
-        #region TouchSwipe
-        /*
-        if (Input.touchCount == 1) // user is touching the screen with a single touch
-        {
-            Debug.Log("One Touch");
-            textoDebugger.text = "One Touch";
+        //Línea encargada de mover el personaje hacia adelante todo el tiempo
+        this.gameObject.transform.Translate(Vector3.forward * (Time.deltaTime + this.velocidadMovimiento));
 
-
-            Touch touch = Input.GetTouch(0); // get the touch
-            if (touch.phase == TouchPhase.Began) //check for the first touch
-            {
-                fp = touch.position;
-                lp = touch.position;
-            }
-            else if (touch.phase == TouchPhase.Moved) // update the last position based on where they moved
-            {
-                lp = touch.position;
-            }
-            else if (touch.phase == TouchPhase.Ended) //check if the finger is removed from the screen
-            {
-                lp = touch.position;  //last touch position. Ommitted if you use list
-
-                //Check if drag distance is greater than 20% of the screen height
-                if (Mathf.Abs(lp.x - fp.x) > dragDistance || Mathf.Abs(lp.y - fp.y) > dragDistance)
-                {//It's a drag
-                 //check if the drag is vertical or horizontal
-                    if (Mathf.Abs(lp.x - fp.x) > Mathf.Abs(lp.y - fp.y))
-                    {   //If the horizontal movement is greater than the vertical movement...
-                        if ((lp.x > fp.x))  //If the movement was to the right)
-                        {   //Right swipe
-                            Debug.Log("Right Swipe");
-                            textoDebugger.text = "Right Swipe";
-                            this.MoverPersonajeDerecha();
-                        }
-                        else
-                        {   //Left swipe
-                            Debug.Log("Left Swipe");
-                            textoDebugger.text = "Left Swipe";
-                            this.MoverPersonajeIzquierda();
-                        }
-                    }
-                    else
-                    {   //the vertical movement is greater than the horizontal movement
-                        if (lp.y > fp.y)  //If the movement was up
-                        {   //Up swipe
-                            Debug.Log("Up Swipe");
-                            textoDebugger.text = "Up Swipe";
-
-                        }
-                        else
-                        {   //Down swipe
-                            Debug.Log("Down Swipe");
-                            textoDebugger.text = "Down Swipe";
-
-                        }
-                    }
-                }
-                else
-                {   //It's a tap as the drag distance is less than 20% of the screen height
-                    Debug.Log("Tap");
-                    textoDebugger.text = "Tap";
-
-                }
-            }
-        }
-        */
-
-        #endregion
 
         if (Globals.debugModePc)
         {
@@ -149,26 +83,26 @@ public class Personaje : MonoBehaviour // 2
         if (this.moverAlCarrilCentral)
         {
 
-            personaje.transform.position = Vector3.MoveTowards(personaje.transform.position,
-                                                    new Vector3(0, personaje.transform.position.y,
-                                                    personaje.transform.position.z), Time.deltaTime * this.velocidadCambio);
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position,
+                                                    new Vector3(0, this.gameObject.transform.position.y,
+                                                    this.gameObject.transform.position.z), Time.deltaTime * this.velocidadCambio);
 
             this.carrilActual = (int)Globals.Carriles.Central;
 
-            if (personaje.transform.position.x == 0)
+            if (this.gameObject.transform.position.x == 0)
                 this.moverAlCarrilCentral = false;
         }
 
         if (this.moverAlCarrilDerecho)
         {
 
-            personaje.transform.position = Vector3.MoveTowards(personaje.transform.position,
-                                                       new Vector3(1, personaje.transform.position.y,
-                                                       personaje.transform.position.z), Time.deltaTime * this.velocidadCambio);
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position,
+                                                       new Vector3(1, this.gameObject.transform.position.y,
+                                                       this.gameObject.transform.position.z), Time.deltaTime * this.velocidadCambio);
 
             this.carrilActual = (int)Globals.Carriles.Derecho;
 
-            if (personaje.transform.position.x == 1)
+            if (this.gameObject.transform.position.x == 1)
                 this.moverAlCarrilDerecho = false;
 
         }
@@ -176,29 +110,29 @@ public class Personaje : MonoBehaviour // 2
         if (this.moverAlCarrilIzquierdo)
         {
 
-            personaje.transform.position = Vector3.MoveTowards(personaje.transform.position,
-                                                    new Vector3(-1, personaje.transform.position.y,
-                                                    personaje.transform.position.z), Time.deltaTime * this.velocidadCambio);
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position,
+                                                    new Vector3(-1, this.gameObject.transform.position.y,
+                                                    this.gameObject.transform.position.z), Time.deltaTime * this.velocidadCambio);
 
 
             this.carrilActual = (int)Globals.Carriles.Izquierdo;
 
-            if (personaje.transform.position.x == -1)
+            if (this.gameObject.transform.position.x == -1)
                 this.moverAlCarrilIzquierdo = false;
 
         }
 
         if (this.saltarPersonaje) {
 
-            personaje.transform.position = Vector3.MoveTowards(personaje.transform.position,
-                                                    new Vector3(personaje.transform.position.x, this.alturaSalto,
-                                                    personaje.transform.position.z), Time.deltaTime * this.velocidadSalto);
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position,
+                                                    new Vector3(this.gameObject.transform.position.x, this.alturaSalto,
+                                                    this.gameObject.transform.position.z), Time.deltaTime * this.velocidadSalto);
 
 
             if (this.velocidadSalto >= 4f)
                 this.velocidadSalto -= 1f;
 
-            if (personaje.transform.position.y > (this.alturaSalto - 0.2f)) {
+            if (this.gameObject.transform.position.y > (this.alturaSalto - 0.2f)) {
                 this.saltarPersonaje = false;
                 this.caerPersonaje = true ;
                 this.velocidadSalto = 9;
@@ -208,9 +142,9 @@ public class Personaje : MonoBehaviour // 2
         if (this.caerPersonaje) {
 
             //Movemos el personaje hasta el piso
-            personaje.transform.position = Vector3.MoveTowards(personaje.transform.position,
-                                                  new Vector3(personaje.transform.position.x, 0,
-                                                  personaje.transform.position.z), Time.deltaTime * this.velocidadCaida);
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position,
+                                                  new Vector3(this.gameObject.transform.position.x, 0,
+                                                  this.gameObject.transform.position.z), Time.deltaTime * this.velocidadCaida);
 
             //Aumentamos progresivamente la velocidad de caida
            
@@ -221,7 +155,7 @@ public class Personaje : MonoBehaviour // 2
            
 
             //Deteneos todo cuando llega al piso.
-            if (personaje.transform.position.y == 0) {
+            if (this.gameObject.transform.position.y == 0) {
                 this.caerPersonaje = false;
                 this.velocidadCaida = 0;
             }

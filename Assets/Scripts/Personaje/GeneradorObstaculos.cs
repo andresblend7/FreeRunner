@@ -16,6 +16,9 @@ public class GeneradorObstaculos : MonoBehaviour
 
     private int carrilIzquierdo = -1, carrilCentral = 0, carrilDerecho = 1;
 
+    //var debug, borrar
+    public bool generarObstaculos;
+
     /// <summary>
     /// Array que contentiene las probabilidades de primer, segundo y tercer intento de generación de obstáculo
     /// </summary>
@@ -59,34 +62,39 @@ public class GeneradorObstaculos : MonoBehaviour
     /// <param name="obstaculo"></param>
     private void GenerarObstaculo(float posicionSpawn_Z, Quaternion rotacionSpawn)
     {
+        if (this.generarObstaculos) {
 
-        //Obtenemos un obstáculo al azar
-        var obstaculo = this.obstaculos[this.randomGenerator.Next(0, this.obstaculos.Length)];
+            //Obtenemos un obstáculo al azar
+            var obstaculo = this.obstaculos[this.randomGenerator.Next(0, this.obstaculos.Length)];
 
-        //Obtenemos la altura del objeto
-        ObstaculoData dataObstaculo = obstaculo.GetComponent(typeof(ObstaculoData)) as ObstaculoData;
+            //Obtenemos la altura del objeto
+            ObstaculoData dataObstaculo = obstaculo.GetComponent(typeof(ObstaculoData)) as ObstaculoData;
 
-       
-      
-        //Obtenemos las probabilidades resueltas de generar un obstáculo
-        var obstaculosGerados = ResolverObstaculos();
 
-        if (obstaculosGerados[0]) {
-            //Invocamos el obstaculo en la posición del spawn y rotación del prefab
-            Instantiate(obstaculo, new Vector3(carrilIzquierdo, dataObstaculo.alturaInicial, posicionSpawn_Z), obstaculo.transform.rotation);
+
+            //Obtenemos las probabilidades resueltas de generar un obstáculo
+            var obstaculosGerados = ResolverObstaculos();
+
+            if (obstaculosGerados[0])
+            {
+                //Invocamos el obstaculo en la posición del spawn y rotación del prefab
+                Instantiate(obstaculo, new Vector3(carrilIzquierdo, dataObstaculo.alturaInicial, posicionSpawn_Z), obstaculo.transform.rotation);
+            }
+
+            if (obstaculosGerados[1])
+            {
+                //Invocamos el obstaculo en la posición del spawn y rotación del prefab
+                Instantiate(obstaculo, new Vector3(carrilCentral, dataObstaculo.alturaInicial, posicionSpawn_Z), obstaculo.transform.rotation);
+            }
+
+            if (obstaculosGerados[2])
+            {
+                //Invocamos el obstaculo en la posición del spawn y rotación del prefab
+                Instantiate(obstaculo, new Vector3(carrilDerecho, dataObstaculo.alturaInicial, posicionSpawn_Z), obstaculo.transform.rotation);
+            }
+
         }
 
-        if (obstaculosGerados[1])
-        {
-            //Invocamos el obstaculo en la posición del spawn y rotación del prefab
-            Instantiate(obstaculo, new Vector3(carrilCentral, dataObstaculo.alturaInicial, posicionSpawn_Z), obstaculo.transform.rotation);
-        }
-
-        if (obstaculosGerados[2])
-        {
-            //Invocamos el obstaculo en la posición del spawn y rotación del prefab
-            Instantiate(obstaculo, new Vector3(carrilDerecho, dataObstaculo.alturaInicial, posicionSpawn_Z), obstaculo.transform.rotation);
-        }
 
 
 

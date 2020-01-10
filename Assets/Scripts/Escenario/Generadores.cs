@@ -24,6 +24,7 @@ public class Generadores : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
+        //Solo se genera el piso una única vez
         if (!this.pisoGenerado)
         {
             this.pisoGenerado = true;
